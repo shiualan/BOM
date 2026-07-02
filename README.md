@@ -1,4 +1,4 @@
-# Latest Weather Observations for Parramatta
+# Latest Weather Observations 
 
 [Source](https://www.bom.gov.au/products/IDN60801/IDN60801.94764.shtml)
 
