@@ -1,0 +1,7 @@
+*.log
+*.err
+*.out
+__pycache__/
+.env
+*.key
+*.pem

@@ -114,3 +114,21 @@ error: failed to push some refs to 'github.com:shiualan/BOM.git'
 
 Updated BOM observation for 066124: Issued at 11:53 am EST Thursday  2 July 2026
 Updated BOM observation for 066214: Issued at 11:53 am EST Thursday  2 July 2026
+Updated BOM observation for 066214: Issued at 12:03 pm EST Thursday  2 July 2026
+Traceback (most recent call last):
+  File "/home/ubuntu/Github/BOM/bom_observation_066124_update.py", line 331, in <module>
+    main()
+  File "/home/ubuntu/Github/BOM/bom_observation_066124_update.py", line 325, in main
+    git_commit_and_push(refresh_message)
+  File "/home/ubuntu/Github/BOM/bom_observation_066124_update.py", line 308, in git_commit_and_push
+    run_command(
+  File "/home/ubuntu/Github/BOM/bom_observation_066124_update.py", line 43, in run_command
+    raise RuntimeError(
+RuntimeError: Command failed: git push
+STDOUT:
+
+STDERR:
+To github.com:shiualan/BOM.git
+ ! [remote rejected] main -> main (cannot lock ref 'refs/heads/main': is at f3496cea133cd9d6f674a1bc2c0ca612cf71d3be but expected e1807926531d2cfc0c17c15fc59b39e550c6b9b5)
+error: failed to push some refs to 'github.com:shiualan/BOM.git'
+
