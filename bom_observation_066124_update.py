@@ -183,9 +183,9 @@ Source:
 
 | File | Purpose |
 | --- | --- |
-| `latest_bom_raw.json` | Latest raw JSON downloaded from BOM |
+| `latest_bom_066124_raw.json` | Latest raw JSON for station ID 066124 downloaded from BOM |
 | `bom_parramatta_observations.csv` | Append-only observation log for `sort_order == 0` |
-| `README.md` | Latest readable observation summary |
+| `066124.md` | Latest readable observation summary |
 
 Last updated locally by script: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 """
