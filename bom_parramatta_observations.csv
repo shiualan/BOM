@@ -1,3 +1,4 @@
 logged_at_local,refresh_message,sort_order,wmo,name,local_date_time,local_date_time_full,aifstime_utc,air_temp,apparent_t,dewpt,rel_hum,delta_t,cloud,cloud_base_m,cloud_oktas,weather,wind_dir,wind_spd_kmh,gust_kmh,wind_spd_kt,gust_kt,press_qnh,press_msl,rain_trace,vis_km
 2026-07-02 10:30:01,Issued at 10:23 am EST Thursday  2 July 2026,0,94764,Parramatta,02/09:00am,20260702090000,20260701230000,17.4,16.7,12.1,71,2.9,Clear,2500,0,Fine,NNW,7,,4,,,,2.0,20
 2026-07-02 10:40:01,Issued at 10:33 am EST Thursday  2 July 2026,0,94764,Parramatta,02/09:00am,20260702090000,20260701230000,17.4,16.7,12.1,71,2.9,Clear,2500,0,Fine,NNW,7,,4,,,,2.0,20
+2026-07-02 10:50:02,Issued at 10:43 am EST Thursday  2 July 2026,0,94764,Parramatta,02/09:00am,20260702090000,20260701230000,17.4,16.7,12.1,71,2.9,Clear,2500,0,Fine,NNW,7,,4,,,,2.0,20
