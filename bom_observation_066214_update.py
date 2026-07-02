@@ -20,6 +20,7 @@ STATION_NAME = "Sydney - Observatory Hill"
 RAW_JSON_FILE = REPO_DIR / "latest_bom_066214_raw.json"
 LOG_FILE = REPO_DIR / "bom_sydney_observatory_hill_observations.csv"
 OUTPUT_FILE = REPO_DIR / "066214.md"
+README_FILE = REPO_DIR / "README.md"
 
 # Only save this observation
 TARGET_SORT_ORDER = 0
@@ -95,6 +96,94 @@ def normalise_value(value):
         return "-"
     return value
 
+def clean_refresh_message(refresh_message):
+    """
+    Convert:
+    'Issued at 10:23 am EST Thursday  2 July 2026'
+
+    Into:
+    '10:23 am EST Thursday 2 July 2026'
+    """
+    cleaned = refresh_message.strip()
+
+    if cleaned.lower().startswith("issued at"):
+        cleaned = cleaned[len("Issued at"):].strip()
+
+    # Collapse repeated spaces
+    return " ".join(cleaned.split())
+
+
+def build_main_readme_row(station_label, refresh_message, observation):
+    issued_time = clean_refresh_message(refresh_message)
+
+    return (
+        f"| {station_label} | "
+        f"{normalise_value(observation.get('air_temp'))} °C | "
+        f"{normalise_value(observation.get('apparent_t'))} °C | "
+        f"{issued_time} |"
+    )
+
+
+def update_main_readme(refresh_message, observation):
+    if not README_FILE.exists():
+        raise FileNotFoundError(f"README file does not exist: {README_FILE}")
+
+    readme = README_FILE.read_text(encoding="utf-8")
+
+    if STATION_ID == "066124":
+        station_label = "[Parramatta North](https://www.bom.gov.au/products/IDN60801/IDN60801.94764.shtml)"
+    elif STATION_ID == "066214":
+        station_label = "[Sydney Observatory Hill](https://www.bom.gov.au/products/IDN60801/IDN60801.94768.shtml)"
+    else:
+        raise ValueError(f"Unsupported STATION_ID for README update: {STATION_ID}")
+
+    new_row = build_main_readme_row(
+        station_label=station_label,
+        refresh_message=refresh_message,
+        observation=observation,
+    )
+
+    table_header = """| Station | Temperature | Apparent Temperature | Issued |
+| --- | ---: | ---: | --- |"""
+
+    if table_header not in readme:
+        readme = readme.replace(
+            "# Latest Weather Observations",
+            f"""# Latest Weather Observations
+
+{table_header}
+| [Parramatta North](https://www.bom.gov.au/products/IDN60801/IDN60801.94764.shtml) | - | - | - |
+| [Sydney Observatory Hill](https://www.bom.gov.au/products/IDN60801/IDN60801.94768.shtml) | - | - | - |""",
+            1,
+        )
+
+    lines = readme.splitlines()
+    updated_lines = []
+
+    target_prefix = f"| {station_label} |"
+    row_updated = False
+
+    for line in lines:
+        if line.startswith(target_prefix):
+            updated_lines.append(new_row)
+            row_updated = True
+        else:
+            updated_lines.append(line)
+
+    if not row_updated:
+        insert_index = None
+
+        for index, line in enumerate(updated_lines):
+            if line.strip() == "| --- | ---: | ---: | --- |":
+                insert_index = index + 1
+                break
+
+        if insert_index is None:
+            raise ValueError("Could not find README weather table insertion point")
+
+        updated_lines.insert(insert_index, new_row)
+
+    README_FILE.write_text("\n".join(updated_lines) + "\n", encoding="utf-8")
 
 def append_log(refresh_message, observation):
     LOG_FILE.parent.mkdir(parents=True, exist_ok=True)
@@ -240,6 +329,7 @@ def main():
 
     append_log(refresh_message, observation)
     build_readme(refresh_message, observation)
+    update_main_readme(refresh_message, observation)
     git_commit_and_push(refresh_message)
 
     print(f"Updated BOM observation for {STATION_ID}: {refresh_message}")

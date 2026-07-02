@@ -14,9 +14,13 @@ REPO_DIR = Path.home() / "Github" / "BOM"
 
 BOM_URL = "https://www.bom.gov.au/fwo/IDN60801/IDN60801.94764.json"
 
+STATION_ID = "066124"
+STATION_NAME = "Parramatta North"
+
 RAW_JSON_FILE = REPO_DIR / "latest_bom_066124_raw.json"
 LOG_FILE = REPO_DIR / "bom_parramatta_observations.csv"
 OUTPUT_FILE = REPO_DIR / "066124.md"
+README_FILE = REPO_DIR / "README.md"
 
 # Only save this observation
 TARGET_SORT_ORDER = 0
@@ -229,9 +233,10 @@ def main():
 
     append_log(refresh_message, observation)
     build_readme(refresh_message, observation)
+    update_main_readme(refresh_message, observation)
     git_commit_and_push(refresh_message)
 
-    print(f"Updated BOM observation: {refresh_message}")
+    print(f"Updated BOM observation for {STATION_ID}: {refresh_message}")
 
 
 if __name__ == "__main__":
