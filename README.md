@@ -3,7 +3,7 @@ Latest Weather Observations
 
 | Station | Temperature | Apparent Temperature | Issued |
 | --- | ---: | ---: | --- |
-| [Parramatta North](https://www.bom.gov.au/products/IDN60801/IDN60801.94764.shtml) | 16.6 °C | 14.4 °C | 10:53 am EST Friday 3 July 2026 |
+| [Parramatta North](https://www.bom.gov.au/products/IDN60801/IDN60801.94764.shtml) | 16.6 °C | 14.4 °C | 11:03 am EST Friday 3 July 2026 |
 | [Sydney Observatory Hill](https://www.bom.gov.au/products/IDN60801/IDN60801.94768.shtml) | 18.4 °C | 12.2 °C | 10:53 am EST Friday 3 July 2026 |
 
 # Files
